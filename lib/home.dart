@@ -39,9 +39,11 @@ class _HomeState extends State<Home> {
       imageMean: 127.5,
       imageStd: 127.5,
     );
+
     setState(() {
       _output = output;
       _loading = false;
+      print("DETECTADO: ${_output[0]['label']}");
     });
   }
 
@@ -82,7 +84,7 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text(
-          'Fruits and Veggies Neural Network',
+          'FOOD VISOR',
           style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w200,
@@ -127,7 +129,7 @@ class _HomeState extends State<Home> {
                               ),
                               _output != null
                                   ? Text(
-                                      'The object is: ${_output[0]['label']}!',
+                                      'El alimento es: ${_output[0]['label']}!',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
@@ -181,6 +183,35 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _output != null
+                        ? ElevatedButton(
+                            onPressed: () {
+                              //alerta que muestra el resultado
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Resultado"),
+                                    content: Text(
+                                        "El alimento es: ${_output[0]['label']}!"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Cerrar"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Text('Ver informacion nutricional'),
+                          )
+                        : Container(),
                   ],
                 ),
               ),
