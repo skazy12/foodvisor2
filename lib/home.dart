@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:transfer_learning_fruit_veggies/dto/comida.dart';
+import 'package:transfer_learning_fruit_veggies/dto/comidaController.dart';
 import 'package:transfer_learning_fruit_veggies/info.dart';
 import 'firebase_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -84,6 +86,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    ComidaController comidaController = Get.put(ComidaController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -193,11 +196,12 @@ class _HomeState extends State<Home> {
                     _output != null
                         ? ElevatedButton(
                             onPressed: () {
-                              var nom = _output[0]['label'];
+                              comidaController.setNombre(_output[0]['label'].toString());
+                              print(comidaController.getNombre());
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Info(nom)),
+                                    builder: (context) => Info()),
                               );
                             },
                             child: Text('Ver informacion nutricional'),

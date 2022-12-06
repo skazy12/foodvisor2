@@ -1,36 +1,36 @@
-apple
-banana
-beetroot
-bell pepper
-cabbage
-capsicum
-carrot
-cauliflower
-chilli pepper
-corn
-cucumber
-eggplant
-garlic
-ginger
-grapes
-jalepeno
+manzana
+platano
+raíz de remolacha
+pimiento
+repollo
+pimiento
+zanahoria
+coliflor
+pimiento picante
+maiz
+pepino
+berenjena
+ajo
+jengibre
+uvas
+jalapeño
 kiwi
-lemon
-lettuce
+limon
+lechuga
 mango
-onion
-orange
-paprika
-pear
-peas
-pineapple
-pomegranate
-potato
-raddish
-soy beans
-spinach
-sweetcorn
-sweetpotato
-tomato
-turnip
-watermelon
+cebolla
+naranja
+pimenton
+pera
+guisantes
+piña
+granada
+papa
+rábano
+habas de soja
+espinaca
+maiz dulce
+batata
+tomate
+nabo
+sandía
