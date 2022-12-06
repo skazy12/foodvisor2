@@ -1,6 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:tflite/tflite.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:transfer_learning_fruit_veggies/dto/comida.dart';
+import 'package:transfer_learning_fruit_veggies/info.dart';
+import 'firebase_service.dart';
 import 'package:image_picker/image_picker.dart';
 
 class Home extends StatefulWidget {
@@ -189,29 +193,11 @@ class _HomeState extends State<Home> {
                     _output != null
                         ? ElevatedButton(
                             onPressed: () {
-                              //alerta que muestra el resultado
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: Text("Resultado"),
-                                    content: Text(
-                                        "El alimento es: ${_output[0]['label']}!"),
-                                    actions: [
-                                      TextButton(
-                                        child: Text("Cerrar"),
-                                        onPressed: () {
-                                          // ir a la pantalla de inicio
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) => Home()),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  );
-                                },
+                              var nom = _output[0]['label'];
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Info(nom)),
                               );
                             },
                             child: Text('Ver informacion nutricional'),
