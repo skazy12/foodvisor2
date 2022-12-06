@@ -201,7 +201,12 @@ class _HomeState extends State<Home> {
                                       TextButton(
                                         child: Text("Cerrar"),
                                         onPressed: () {
-                                          Navigator.of(context).pop();
+                                          // ir a la pantalla de inicio
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => Home()),
+                                          );
                                         },
                                       ),
                                     ],

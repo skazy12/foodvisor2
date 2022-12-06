@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 //crear una clase comida que tenga como atributos sus proteinas, carbohidratos, grasas, calorias, nombre, etc
 //y que tenga un metodo que calcule las calorias
 //y que tenga un metodo que calcule las proteinas
@@ -5,70 +7,70 @@
 //y que tenga un metodo que calcule los carbohidratos
 class Comida {
   String nombre;
-  int calorias;
-  int proteinas;
-  int carbohidratos;
-  int grasas;
-  Comida(this.nombre, this.calorias, this.proteinas, this.carbohidratos,
-      this.grasas);
-  int calcularCalorias() {
-    return calorias;
-  }
+  double agua, azucar, carbohidratos, energia, porcion, proteina;
 
-  int calcularProteinas() {
-    return proteinas;
-  }
-
-  int calcularCarbohidratos() {
-    return carbohidratos;
-  }
-
-  int calcularGrasas() {
-    return grasas;
-  }
-
-  String getNombre() {
-    return nombre;
-  }
-
-  int getCalorias() {
-    return calorias;
-  }
-
-  int getProteinas() {
-    return proteinas;
-  }
-
-  int getCarbohidratos() {
-    return carbohidratos;
-  }
-
-  int getGrasas() {
-    return grasas;
-  }
+  Comida(
+      {this.nombre,
+      this.agua,
+      this.azucar,
+      this.carbohidratos,
+      this.energia,
+      this.porcion,
+      this.proteina});
 
   void setNombre(String nombre) {
     this.nombre = nombre;
   }
 
-  void setCalorias(int calorias) {
-    this.calorias = calorias;
+  String getNombre() {
+    return this.nombre;
   }
 
-  void setProteinas(int proteinas) {
-    this.proteinas = proteinas;
+  void setAgua(double agua) {
+    this.agua = agua;
   }
 
-  void setCarbohidratos(int carbohidratos) {
+  double getAgua() {
+    return this.agua;
+  }
+
+  void setAzucar(double azucar) {
+    this.azucar = azucar;
+  }
+
+  double getAzucar() {
+    return this.azucar;
+  }
+
+  void setCarbohidratos(double carbohidratos) {
     this.carbohidratos = carbohidratos;
   }
 
-  void setGrasas(int grasas) {
-    this.grasas = grasas;
+  double getCarbohidratos() {
+    return this.carbohidratos;
   }
 
-  @override
-  String toString() {
-    return 'Comida{nombre: $nombre, calorias: $calorias, proteinas: $proteinas, carbohidratos: $carbohidratos, grasas: $grasas}';
+  void setEnergia(double energia) {
+    this.energia = energia;
+  }
+
+  double getEnergia() {
+    return this.energia;
+  }
+
+  void setPorcion(double porcion) {
+    this.porcion = porcion;
+  }
+
+  double getPorcion() {
+    return this.porcion;
+  }
+
+  void setProteina(double proteina) {
+    this.proteina = proteina;
+  }
+
+  double getProteina() {
+    return this.proteina;
   }
 }
