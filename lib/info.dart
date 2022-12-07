@@ -3,6 +3,7 @@ import 'package:transfer_learning_fruit_veggies/dto/comida.dart';
 import 'dto/comidaController.dart';
 import 'firebase_service.dart';
 import 'package:get/get.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 class Info extends StatefulWidget {
   const Info({key}) : super(key: key);
@@ -12,46 +13,259 @@ class Info extends StatefulWidget {
 }
 
 class _InfoState extends State<Info> {
+  String snom="";
+  double agua,azucar=0.0,carb=0.0,energ=0.0,fibra=0.0,porcion=0.0,proteina=0.0,sum=0.0;
   get nom => null;
-
   @override
   Widget build(BuildContext context) {
     ComidaController comidaController = Get.put(ComidaController());
-    String snom="";
-    double agua=0.0,azucar=0.0,carb=0.0,energ=0.0,fibra=0.0,porcion=0.0,proteina=0.0;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Información del alimento'),
+        title: const Text('DATOS NUTRICIONALES'),
+        backgroundColor: Colors.blueGrey[600],
       ),
       body: FutureBuilder(
           future: getAlimento(),
           builder: ((context, snapshot) {
-            return ListView.builder(
-                itemCount: snapshot.data?.length,
-                itemBuilder: (context, index) {
-                  if (comidaController.getNombre()==snapshot.data[index]['nombre'].toString()){
-                    snom=snapshot.data[index]['nombre'];
-                    print(snom+"**");
-                    agua=double.parse(snapshot.data[index]['agua'].toString());
-                    print(agua.toString()+"**");
-                    azucar=double.parse(snapshot.data[index]['azucar'].toString());
-                    print(azucar.toString()+"**");
-                    carb=double.parse(snapshot.data[index]['carbohidrato'].toString());
-                    print(carb.toString()+"**");
-                    energ=double.parse(snapshot.data[index]['energia'].toString());
-                    print(energ.toString()+"**");
-                    fibra=double.parse(snapshot.data[index]['fibra'].toString());
-                    print(fibra.toString()+"**");
-                    porcion=double.parse(snapshot.data[index]['porcion'].toString());
-                    print(porcion.toString()+"**");
-                    proteina=double.parse(snapshot.data[index]['proteina'].toString());
-                    print(proteina.toString()+"**");
-                    return Text(snom+" "+agua.toString()+" "+azucar.toString());
-                  }
-                  else{
-                    return Container();
-                  }
-                });
+            if(snapshot.hasData){
+              return ListView.builder(
+                  itemCount: snapshot.data?.length,
+                  itemBuilder: (context, index) {
+                    if (comidaController.getNombre() == snapshot.data[index]['nombre'].toString()){
+                      snom=snapshot.data[index]['nombre'];
+                      agua=double.parse(snapshot.data[index]['agua'].toString());
+                      azucar=double.parse(snapshot.data[index]['azucar'].toString());
+                      carb=double.parse(snapshot.data[index]['carbohidrato'].toString());
+                      energ=double.parse(snapshot.data[index]['energia'].toString());
+                      fibra=double.parse(snapshot.data[index]['fibra'].toString());
+                      porcion=double.parse(snapshot.data[index]['porcion'].toString());
+                      proteina=double.parse(snapshot.data[index]['proteina'].toString());
+                      sum=agua+azucar+carb+energ+fibra+proteina;
+                      List<PieChartSectionData> sectionsChart = [
+                        PieChartSectionData(
+                          value: (agua/sum)*100,
+                          title: "${((agua/sum)*100).round()} %",
+                          showTitle: true,
+                          color: Colors.orange,
+                          radius: 100,
+                        ),
+                        PieChartSectionData(
+                          value: (azucar/sum)*100,
+                          title: "${((azucar/sum)*100).round()} %",
+                          showTitle: true,
+                          color: Colors.blue,
+                          radius: 100,
+                        ),
+                        PieChartSectionData(
+                          value: (carb/sum)*100,
+                          title: "${((carb/sum)*100).round()} %",
+                          showTitle: true,
+                          color: Colors.purpleAccent,
+                          radius: 100,
+                        ),
+                        PieChartSectionData(
+                          value: (energ/sum)*100,
+                          title: "${((energ/sum)*100).round()} %",
+                          showTitle: true,
+                          color: Colors.redAccent,
+                          radius: 100,
+                        ),
+                        PieChartSectionData(
+                          value: (fibra/sum)*100,
+                          title: "${((fibra/sum)*100).round()} %",
+                          showTitle: true,
+                          color: Colors.green,
+                          radius: 100,
+                        ),
+                        PieChartSectionData(
+                          value: (proteina/sum)*100,
+                          title: "${((proteina/sum)*100).round()} %",
+                          showTitle: true,
+                          color: Colors.yellow,
+                          radius: 100,
+                        ),
+                      ];
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: ListView(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          children: [
+                            SizedBox(height: 25),
+                            Container(
+                              height: 200,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: FileImage(comidaController.getImage()),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                            ),
+                            SizedBox(height: 25),
+                        Column(
+                                children: [
+                                  Text(
+                                    'Alimento: ${snom}' ,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 15),
+                                  Text(
+                                    'Porción: ${porcion} %',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle_rounded,
+                                        color: Colors.blue,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        'Azúcar: ${azucar} g',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle_rounded,
+                                        color: Colors.purpleAccent,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        'Carbohidratos: ${carb} g',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle_rounded,
+                                        color: Colors.redAccent,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        'Energía: ${energ} g',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle_rounded,
+                                        color: Colors.green,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        'Fibra: ${fibra} g',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle_rounded,
+                                        color: Colors.orange,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        'Agua: ${agua} g',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 15),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.circle_rounded,
+                                        color: Colors.yellow,
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        'Proteína: ${proteina} g',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  /**Text(
+                                    'COMPOSICIÓN',
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),**/
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 250,
+                                child: PieChart(
+                                  PieChartData(
+                                      borderData: FlBorderData(
+                                        show: false,
+                                      ),
+                                      sectionsSpace: 0,
+                                      centerSpaceRadius: 0,
+                                      sections: sectionsChart),
+                                ),
+                              ),
+                                ],
+                              ),
+                          ],
+                        ),
+                      );
+                    }
+                    else{
+                      return Container();
+                    }
+                  });
+            }else{
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
           })),
     );
   }

@@ -88,20 +88,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     ComidaController comidaController = Get.put(ComidaController());
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Text(
-          'FOOD VISOR',
-          style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w200,
-              fontSize: 20,
-              letterSpacing: 0.8),
-        ),
-      ),
       body: Container(
         color: Colors.black.withOpacity(0.9),
-        padding: EdgeInsets.symmetric(horizontal: 35, vertical: 50),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Container(
           alignment: Alignment.center,
           padding: EdgeInsets.all(30),
@@ -110,15 +99,27 @@ class _HomeState extends State<Home> {
             borderRadius: BorderRadius.circular(30),
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+           mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                child: Center(
+                child: Container(
                   child: _loading == true
                       ? null //show nothing if no picture selected
                       : Container(
                           child: Column(
                             children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children:[
+                                  Text("FOOD VISOR",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 50,
+                                      )
+                                  ),
+                                ]
+                              ),
+                              SizedBox(height: 45),
                               Container(
                                 height: 250,
                                 width: 250,
@@ -166,7 +167,7 @@ class _HomeState extends State<Home> {
                             color: Colors.blueGrey[600],
                             borderRadius: BorderRadius.circular(15)),
                         child: Text(
-                          'Take A Photo',
+                          'TOMAR FOTO',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ),
@@ -180,32 +181,44 @@ class _HomeState extends State<Home> {
                         width: MediaQuery.of(context).size.width - 200,
                         alignment: Alignment.center,
                         padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 17),
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 17),
                         decoration: BoxDecoration(
                             color: Colors.blueGrey[600],
                             borderRadius: BorderRadius.circular(15)),
                         child: Text(
-                          'Pick From Gallery',
+                          'SELECCIONAR IMAGEN',
                           style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 30,
                     ),
                     _output != null
-                        ? ElevatedButton(
-                            onPressed: () {
-                              comidaController.setNombre(_output[0]['label'].toString());
-                              print(comidaController.getNombre());
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Info()),
-                              );
-                            },
-                            child: Text('Ver informacion nutricional'),
-                          )
+                        ? GestureDetector(
+                      onTap: () {
+                        comidaController.setNombre(_output[0]['label'].toString());
+                        comidaController.setImage(_image);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                              return Info();
+                            }));
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width - 200,
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 17),
+                        decoration: BoxDecoration(
+                            color: Colors.blueGrey[600],
+                            borderRadius: BorderRadius.circular(15)),
+                        child: Text(
+                          'DATOS NUTRICIONALES',
+                          style: TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
+                      ),
+                    )
                         : Container(),
                   ],
                 ),
