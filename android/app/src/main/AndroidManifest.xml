@@ -13,7 +13,7 @@
 
     <application
         android:name="${applicationName}"
-        android:label="transfer_learning_fruit_veggies"
+        android:label="FOOD VISOR"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

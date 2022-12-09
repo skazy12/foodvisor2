@@ -18,11 +18,10 @@ class _HomeState extends State<Home> {
   bool _loading = true;
   File _image;
   List _output;
-  final picker = ImagePicker(); //allows us to pick image from gallery or camera
+  final picker = ImagePicker();
 
   @override
   void initState() {
-    //initS is the first function that is executed by default when this class is called
     super.initState();
     loadModel().then((value) {
       setState(() {});
@@ -31,36 +30,43 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
-    //dis function disposes and clears our memory
     super.dispose();
     Tflite.close();
   }
 
-  classifyImage(File image) async {
-    //this function runs the model on the image
-    var output = await Tflite.runModelOnImage(
-      path: image.path,
-      numResults: 36, //the amout of categories our neural network can predict
-      threshold: 0.5,
-      imageMean: 127.5,
-      imageStd: 127.5,
-    );
-
-    setState(() {
-      _output = output;
-      _loading = false;
-      print("DETECTADO: ${_output[0]['label']}");
-    });
+  Future classifyImage(File image) async {
+    try{
+      var output = await Tflite.runModelOnImage(
+        path: image.path,
+        numResults: 36,
+        threshold: 0.5,
+        imageMean: 127.5,
+        imageStd: 127.5,
+      );
+      print('output : $output');
+      if(!output.isEmpty){
+        setState(() {
+          _output = output;
+          _loading = false;
+          print("DETECTADO: ${_output[0]['label']}");
+        });
+      }else{
+        setState(() {
+          _output[0]['label']=" NO DETECTADO ";
+          _loading = false;
+        });
+      }
+    }catch(e){
+      print(e);
+    }
   }
 
   loadModel() async {
-    //this function loads our model
     await Tflite.loadModel(
         model: 'assets/model.tflite', labels: 'assets/labels.txt');
   }
 
   Future pickImage() async {
-    //this function to grab the image from camera
     try {
       var image = await picker.getImage(source: ImageSource.camera);
       if (image == null) return null;
@@ -69,19 +75,21 @@ class _HomeState extends State<Home> {
       });
       classifyImage(_image);
     } catch (e) {
-      print(e);
+      print(e+"*******");
     }
   }
 
   pickGalleryImage() async {
-    //this function to grab the image from gallery
-    var image = await picker.getImage(source: ImageSource.gallery);
-    if (image == null) return null;
-
-    setState(() {
-      _image = File(image.path);
-    });
-    classifyImage(_image);
+    try{
+      var image = await picker.getImage(source: ImageSource.gallery);
+      if (image == null) return null;
+      setState(() {
+        _image = File(image.path);
+      });
+      classifyImage(_image);
+    }catch(e){
+      print(e+"-*-");
+    }
   }
 
   @override
@@ -137,7 +145,7 @@ class _HomeState extends State<Home> {
                               ),
                               _output != null
                                   ? Text(
-                                      'El alimento es: ${_output[0]['label']}!',
+                                      'ALIMENTO: ¡${(_output[0]['label']).toString().toUpperCase()}!',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 18,
@@ -196,28 +204,28 @@ class _HomeState extends State<Home> {
                     ),
                     _output != null
                         ? GestureDetector(
-                      onTap: () {
-                        comidaController.setNombre(_output[0]['label'].toString());
-                        comidaController.setImage(_image);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                              return Info();
-                            }));
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width - 200,
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 17),
-                        decoration: BoxDecoration(
-                            color: Colors.blueGrey[600],
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Text(
-                          'DATOS NUTRICIONALES',
-                          style: TextStyle(
-                              color: Colors.white, fontSize: 16),
-                        ),
-                      ),
+                            onTap: () {
+                              comidaController.setNombre(_output[0]['label'].toString());
+                              comidaController.setImage(_image);
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                    return Info();
+                                  }));
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width - 200,
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 17),
+                              decoration: BoxDecoration(
+                                  color: Colors.blueGrey[600],
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Text(
+                                'DATOS NUTRICIONALES',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 16),
+                              ),
+                            ),
                     )
                         : Container(),
                   ],
@@ -227,6 +235,20 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
+    );
+  }
+  Widget _alerta() {
+    return AlertDialog(
+      title: Text('Alerta'),
+      content: Text('No se ha seleccionado ninguna imagen'),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Aceptar'),
+        )
+      ],
     );
   }
 }

@@ -31,7 +31,11 @@ class _InfoState extends State<Info> {
               return ListView.builder(
                   itemCount: snapshot.data?.length,
                   itemBuilder: (context, index) {
-                    if (comidaController.getNombre() == snapshot.data[index]['nombre'].toString()){
+                    print("SSSSSSSSSS"+comidaController.getNombre());
+                    print("RRRRRRRRR"+snapshot.data[index]['name'].toString());
+                    if (comidaController.getNombre().toUpperCase() == snapshot.data[index]['nombre'].toString().toUpperCase()){
+                      print("jjjjjjjj"+comidaController.getNombre());
+                      print("yyyyyyyy"+snapshot.data[index]['name'].toString());
                       snom=snapshot.data[index]['nombre'];
                       agua=double.parse(snapshot.data[index]['agua'].toString());
                       azucar=double.parse(snapshot.data[index]['azucar'].toString());
@@ -92,152 +96,196 @@ class _InfoState extends State<Info> {
                           scrollDirection: Axis.vertical,
                           children: [
                             SizedBox(height: 25),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '${snom.toUpperCase()}',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+
+                              ],
+                            ),
+                            SizedBox(height: 25),
                             Container(
                               height: 200,
                               width: 200,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: FileImage(comidaController.getImage()),
-                                  fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.file(
+                                    comidaController.getImage()
                                 ),
-                                borderRadius: BorderRadius.circular(15.0),
                               ),
                             ),
                             SizedBox(height: 25),
                         Column(
                                 children: [
+                                  Column(
+                                      children:<Widget>[
+                                        Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Text(
+                                            'DETALLE NUTRITIVO',
+                                            style: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Porción comestible: ${porcion} %',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Table(
+                                            textDirection: TextDirection.rtl,
+                                            defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
+                                            children: [
+                                              TableRow(
+                                                  children: [
+                                                    Padding(padding: const EdgeInsets.all(10),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.circle_rounded,
+                                                            color: Colors.green,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                            'Fibra: ${fibra} g',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(padding: const EdgeInsets.all(10),
+                                                      child:Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.circle_rounded,
+                                                            color: Colors.orange,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                            'Grasa: ${agua} g',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ]
+                                              ),
+                                              TableRow(
+                                                  children: [
+                                                    Padding(padding: const EdgeInsets.all(10),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.circle_rounded,
+                                                            color: Colors.blue,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                            'Azúcar: ${azucar} g',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(padding: const EdgeInsets.all(10),
+                                                      child:Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.circle_rounded,
+                                                            color: Colors.yellow,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                            'Proteína: ${proteina} g',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ]
+                                              ),
+                                              TableRow(
+                                                  children: [
+                                                    Padding(padding: const EdgeInsets.all(10),
+                                                      child: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.circle_rounded,
+                                                            color: Colors.purpleAccent,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                            'Hidrato: ${carb} g',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(padding: const EdgeInsets.all(10),
+                                                      child:Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.circle_rounded,
+                                                            color: Colors.redAccent,
+                                                            size: 15,
+                                                          ),
+                                                          Text(
+                                                            'Energía: ${energ} g',
+                                                            style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight: FontWeight.bold,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ]
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ]
+                                  ),
                                   Text(
-                                    'Alimento: ${snom}' ,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Text(
-                                    'Porción: ${porcion} %',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.circle_rounded,
-                                        color: Colors.blue,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        'Azúcar: ${azucar} g',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.circle_rounded,
-                                        color: Colors.purpleAccent,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        'Carbohidratos: ${carb} g',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.circle_rounded,
-                                        color: Colors.redAccent,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        'Energía: ${energ} g',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.circle_rounded,
-                                        color: Colors.green,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        'Fibra: ${fibra} g',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.circle_rounded,
-                                        color: Colors.orange,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        'Agua: ${agua} g',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  SizedBox(height: 15),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.circle_rounded,
-                                        color: Colors.yellow,
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        'Proteína: ${proteina} g',
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-
-                                  /**Text(
                                     'COMPOSICIÓN',
                                     style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                  ),**/
+                                  ),
                               Container(
                                 width: MediaQuery.of(context).size.width,
                                 height: 250,

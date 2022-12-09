@@ -1,36 +1,137 @@
-manzana
-platano
-raíz de remolacha
-pimiento
-repollo
-pimiento
-zanahoria
-coliflor
-pimiento picante
-maiz
-pepino
-berenjena
-ajo
-jengibre
-uvas
-jalapeño
-kiwi
-limon
-lechuga
-mango
-cebolla
-naranja
-pimenton
-pera
-guisantes
-piña
-granada
-papa
-rábano
-habas de soja
-espinaca
-maiz dulce
-batata
-tomate
-nabo
-sandía
+Manzana
+Pie de manzana
+Costillitas
+Baklava
+Platano
+Carpaccio de carne
+Tartar de ternera
+Ensalada de remolacha
+Raiz de remolacha
+Beignets
+Pimiento
+Bibimbap
+Pudin de pan
+Burrito de desayuno
+Bruschetta
+Repollo
+Ensalada cesar
+Cannoli
+Ensalada caprese
+Pimiento
+Zanahoria
+Pastel de zanahoria
+Coliflor
+Ceviche
+Plato de queso
+Tarta de queso
+Curry de pollo
+Quesadilla de pollo
+Alitas de pollo
+Pimiento picante
+Pastel de chocolate
+Mousse de chocolate
+Churros
+Sopa de almejas
+Sandwich club
+Maiz
+Pasteles de cangrejo
+Crema brulee
+Madame croque
+Pepino
+Pasteles de taza
+Huevos rellenos
+Donas
+Albondigas
+Edamame
+Berenjena
+Huevos benedict
+Caracoles
+Falafel
+Filete mignon
+Pescado y papas fritas
+Foie gras
+Papas fritas
+Sopa francesa de cebolla
+Tostada francesa
+Calamares fritos
+Arroz frito
+Yogurt congelado
+Ajo
+Pan de ajo
+Jengibre
+Noquis
+Uvas
+Ensalada griega
+Sandwich de queso fundido
+Salmon a la plancha
+Guacamole
+Gyozas
+Hamburguesa
+Sopa caliente y amarga
+Pancho
+Huevos rancheros
+Hummus
+Helado
+Jalapeno
+Kiwi
+Lasana
+Limon
+Lechuga
+Sopa de langosta
+Sandwich de rollo de langosta
+Macarrones con queso
+Macarrones
+Mango
+Sopa de miso
+Mejillones
+Nachos
+Tortilla
+Cebolla
+Aros de cebolla
+Naranja
+Ostras
+Almohadilla tailandesa
+Paella
+Panqueques
+Panna cotta
+Pimenton
+Pera
+Guisantes
+Pato pekin
+Pho
+Pina
+Pizza
+Granada
+Chuleta de cerdo
+Papa
+Poutine
+Costilla
+Sandwich de puerco desmenuzado
+Rabano
+Ramen
+Ravioles
+Pastel de terciopelo rojo
+Risotto
+Samosa
+Sashimi
+Vieiras
+Ensalada de algas
+Camarones y semola
+Habas de soja
+Spaghetti a la bolonesa
+Espagueti carbonara
+Espinaca
+Rollitos de primavera
+Filete
+Pastel de fresas
+Sushi
+Maiz dulce
+Batata
+Tacos
+Takoyaki
+Tiramisu
+Tomate
+Tartar de atun
+Nabo
+Gofres
+Sandia
